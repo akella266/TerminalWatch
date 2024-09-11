@@ -110,13 +110,14 @@ class TerminalWatchfaceRenderer(
 
         if (renderParameters.watchFaceLayers.contains(WatchFaceLayer.BASE)) {
             val time = zonedDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
+            val ambientTime = zonedDateTime.format(DateTimeFormatter.ofPattern("HH:mm"))
             val date = zonedDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
 
             val lastEvent = events.value
             var lineCounter = 0
 
             if (renderParameters.drawMode == DrawMode.AMBIENT) {
-                canvas.drawText("TIME: $time", x + 20, y, paint)
+                canvas.drawText("TIME: $ambientTime", x + 20, y, paint)
                 canvas.drawText("DATE: $date", x + 20, y + lineNUmberTextSizePx + lineSpacer, paint)
             } else {
                 canvas.drawText("user@watchface: now", x, y, paint)
