@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<WatchFace height="450" width="450">
+    <Scene backgroundColor="#ffffff">
+<!--        <PartText x="50" y="50">-->
+<!--            <Text>-->
+<!--                <Font family="firecode.ttf">user@watchface: now</Font>-->
+<!--                <Font family="firecode.ttf">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</Font>-->
+<!--            </Text>-->
+<!--        </PartText>-->
+    </Scene>
+</WatchFace>
