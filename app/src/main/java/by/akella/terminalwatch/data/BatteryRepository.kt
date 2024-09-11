@@ -24,7 +24,7 @@ class BatteryRepository(
         Log.e(TAG, "Battery level: ${_batteryLevel.value}")
     }
 
-    fun registerBatteryLevelListener(delayMs: Long = 20_000) =
+    fun registerBatteryLevelListener(delayMs: Long = 300_000) =
         flow<Unit> {
             Log.e(TAG, "Battery listening started")
             while (true) {

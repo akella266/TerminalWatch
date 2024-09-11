@@ -55,7 +55,7 @@ class PassiveDataRepository(
     }
 
     val latestDistance: Flow<Double> = dataStore.data.map {
-        prefs -> prefs[LATEST_CALORIES] ?: 0.0
+        prefs -> prefs[LATEST_DISTANCE] ?: 0.0
     }
 
     suspend fun storeLatestDistance(distance: Double) = dataStore.edit { prefs ->

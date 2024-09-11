@@ -124,8 +124,8 @@ class TerminalWatchfaceRenderer(
                 canvas.drawText("TIME: $time", x, y + 2 * lineNUmberTextSizePx + lineSpacer, paint)
                 canvas.drawText("DATE: $date", x, y + 3 * lineNUmberTextSizePx + lineSpacer, paint)
                 canvas.drawText("STEP: ${steps.value}", x, y + 4 * lineNUmberTextSizePx + lineSpacer, paint)
-                canvas.drawText("DIST: ${distance.value}", x, y + 5 * lineNUmberTextSizePx + lineSpacer, paint)
-                canvas.drawText("CALS: ${calories.value}", x, y + 6 * lineNUmberTextSizePx + lineSpacer, paint)
+                canvas.drawText("DIST: ${distance.value.toInt()}", x, y + 5 * lineNUmberTextSizePx + lineSpacer, paint)
+                canvas.drawText("CALS: ${calories.value.toInt()}", x, y + 6 * lineNUmberTextSizePx + lineSpacer, paint)
                 canvas.drawText("BATT: ${battery.value}/100", x, y + 7 * lineNUmberTextSizePx + lineSpacer, paint)
                 if (lastEvent != null) {
                     val eventTime = Instant.ofEpochMilli(lastEvent.startTime)

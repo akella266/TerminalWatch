@@ -5,7 +5,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
-import androidx.health.services.client.HealthServices
 import by.akella.terminalwatch.data.BatteryRepository
 import by.akella.terminalwatch.data.CalendarRepository
 import by.akella.terminalwatch.data.HealthServicesManager
@@ -28,7 +27,7 @@ val appModule = module {
         }
     }
     factory { PassiveDataRepository(get<DataStore<Preferences>>()) }
-    single { HealthServicesManager(HealthServices.getClient(get<Context>())) }
+    single { HealthServicesManager(get<Context>()) }
     single { BatteryRepository(get<Context>()) }
     factory { CalendarRepository(get<Context>()) }
 }

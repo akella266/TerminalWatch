@@ -9,6 +9,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
+import by.akella.terminalwatch.data.HealthServicesManager
 import by.akella.terminalwatch.data.PassiveDataRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -52,7 +53,8 @@ class RegisterForBackgroundDataWorker(
 
     override suspend fun doWork(): Result {
         Log.i(TAG, "DataWorker running")
-
+        val healthServicesRepository = HealthServicesManager(appContext)
+        healthServicesRepository.registerForHeartRateData()
         return Result.success()
     }
 }
