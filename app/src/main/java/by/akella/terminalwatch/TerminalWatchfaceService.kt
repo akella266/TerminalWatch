@@ -15,6 +15,7 @@ import by.akella.terminalwatch.data.PassiveDataRepository
 import by.akella.terminalwatch.watchface.TerminalWatchfaceRenderer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.launchIn
@@ -29,15 +30,26 @@ class TerminalWatchfaceService : WatchFaceService() {
     private val calendarRepository: CalendarRepository by inject<CalendarRepository>()
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
+    private var batteryJob: Job? = null
+
     override fun onCreate() {
         super.onCreate()
 
-        batteryRepository.registerBatteryLevelListener()
+        if (batteryRepository.hasSubscription.get()) {
+            batteryJob?.cancel()
+            batteryJob = null
+        }
+
+        batteryJob = batteryRepository.registerBatteryLevelListener()
             .launchIn(coroutineScope)
 
-        if (checkSelfPermission(android.Manifest.permission.BODY_SENSORS) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+        if (checkSelfPermission(android.Manifest.permission.BODY_SENSORS) ==
+            android.content.pm.PackageManager.PERMISSION_GRANTED) {
+
             coroutineScope.launch {
-                healthyMaanger.registerForHeartRateData()
+                if (!healthyMaanger.hasSubscription.get()) {
+                    healthyMaanger.registerForHeartRateData()
+                }
             }
         }
     }

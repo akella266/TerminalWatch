@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="number_line">10sp</dimen>
+    <dimen name="number_line">11sp</dimen>
+    <dimen name="ambient_number_line">14sp</dimen>
     <dimen name="line_spacer">2dp</dimen>
 </resources>

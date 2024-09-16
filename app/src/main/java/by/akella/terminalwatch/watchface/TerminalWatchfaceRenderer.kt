@@ -80,7 +80,13 @@ class TerminalWatchfaceRenderer(
         textSize = context.resources.getDimension(R.dimen.number_line)
         typeface = Typeface.create(fireTypeface, Typeface.BOLD)
     }
+    private val ambientPaint: Paint = Paint().apply {
+        color = context.resources.getColor(R.color.text_color, context.theme)
+        textSize = context.resources.getDimension(R.dimen.ambient_number_line)
+        typeface = Typeface.create(fireTypeface, Typeface.BOLD)
+    }
     private val lineNUmberTextSizePx = context.resources.getDimensionPixelSize(R.dimen.number_line)
+    private val ambientLineNUmberTextSizePx = context.resources.getDimensionPixelSize(R.dimen.ambient_number_line)
     private val lineSpacer = context.resources.getDimension(R.dimen.line_spacer)
 
     override suspend fun createSharedAssets(): SharedAssets = SharedAssets()
@@ -105,8 +111,11 @@ class TerminalWatchfaceRenderer(
 
         canvas.drawColor(backgroundColor)
 
-        val x = bounds.exactCenterX() / 2.5f
+        val x = bounds.exactCenterX() / 3f
         val y = bounds.exactCenterY() / 2f
+
+        val ambientX = (bounds.exactCenterX() / 6f)
+        val ambientY = (bounds.exactCenterY() / 1.15f)
 
         if (renderParameters.watchFaceLayers.contains(WatchFaceLayer.BASE)) {
             val time = zonedDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"))
@@ -117,8 +126,9 @@ class TerminalWatchfaceRenderer(
             var lineCounter = 0
 
             if (renderParameters.drawMode == DrawMode.AMBIENT) {
-                canvas.drawText("TIME: $ambientTime", x + 20, y, paint)
-                canvas.drawText("DATE: $date", x + 20, y + lineNUmberTextSizePx + lineSpacer, paint)
+                canvas.drawText("TIME: $ambientTime", ambientX, ambientY, ambientPaint)
+                canvas.drawText("DATE: $date", ambientX, ambientY + ambientLineNUmberTextSizePx + lineSpacer, ambientPaint)
+                canvas.drawText("BATT: ${battery.value}/100", ambientX, ambientY + 2 * ambientLineNUmberTextSizePx + lineSpacer, ambientPaint)
             } else {
                 canvas.drawText("user@watchface: now", x, y, paint)
                 canvas.drawText("--------------", x, y + 1 * lineNUmberTextSizePx + lineSpacer, paint)
