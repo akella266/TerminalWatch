@@ -44,18 +44,18 @@ class TerminalWatchfaceRenderer(
     watchState: WatchState,
     currentUserStyleRepository: CurrentUserStyleRepository,
     canvasType: Int
-    ) : Renderer.CanvasRenderer2<TerminalWatchfaceRenderer.SharedAssets>(
-        surfaceHolder,
-        currentUserStyleRepository,
-        watchState,
-        canvasType,
+) : Renderer.CanvasRenderer2<TerminalWatchfaceRenderer.SharedAssets>(
+    surfaceHolder,
+    currentUserStyleRepository,
+    watchState,
+    canvasType,
     FRAME_PERIOD_MS_DEFAULT,
-        false
-    ) {
+    false
+) {
 
-        class SharedAssets : Renderer.SharedAssets {
-            override fun onDestroy() {}
-        }
+    class SharedAssets : Renderer.SharedAssets {
+        override fun onDestroy() {}
+    }
 
     private val scope: CoroutineScope =
         CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
@@ -98,7 +98,6 @@ class TerminalWatchfaceRenderer(
         sharedAssets: SharedAssets
     ) {
         canvas.drawColor(renderParameters.highlightLayer!!.backgroundTint)
-        //render complications
     }
 
     override fun render(
@@ -128,7 +127,7 @@ class TerminalWatchfaceRenderer(
             if (renderParameters.drawMode == DrawMode.AMBIENT) {
                 canvas.drawText("TIME: $ambientTime", ambientX, ambientY, ambientPaint)
                 canvas.drawText("DATE: $date", ambientX, ambientY + ambientLineNUmberTextSizePx + lineSpacer, ambientPaint)
-                canvas.drawText("BATT: ${battery.value}/100", ambientX, ambientY + 2 * ambientLineNUmberTextSizePx + lineSpacer, ambientPaint)
+                canvas.drawText("BATT: ${battery.value}/100", ambientX, ambientY + (2.1 * ambientLineNUmberTextSizePx).toInt() + lineSpacer, ambientPaint)
             } else {
                 canvas.drawText("user@watchface: now", x, y, paint)
                 canvas.drawText("--------------", x, y + 1 * lineNUmberTextSizePx + lineSpacer, paint)
